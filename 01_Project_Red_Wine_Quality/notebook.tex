@@ -1,0 +1,1442 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{CS\_4661\_Red\_Wine\_Quality}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{CS 4661 \textbar{} Subject: RED WINE QUALITY DATASET ANALYSIS
+\textbar{} Fall
+2018}\label{cs-4661-subject-red-wine-quality-dataset-analysis-fall-2018}
+
+    \subsection{Smitkumar Patel (CIN:
+306587208)}\label{smitkumar-patel-cin-306587208}
+
+\subsection{Ravi Amin}\label{ravi-amin}
+
+\subsection{Kruti Shah}\label{kruti-shah}
+
+\subsection{Rutviben Patel}\label{rutviben-patel}
+
+\subsection{Riddhiben Patel (CIN:
+306612701)}\label{riddhiben-patel-cin-306612701}
+
+    \subsubsection{Data set link :
+https://www.kaggle.com/uciml/red-wine-quality-cortez-et-al-2009}\label{data-set-link-httpswww.kaggle.comucimlred-wine-quality-cortez-et-al-2009}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{style}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{import} \PY{n}{figure}\PY{p}{,} \PY{n}{output\PYZus{}file}\PY{p}{,} \PY{n}{show}
+         \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{layouts} \PY{k}{import} \PY{n}{row}
+         \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{import} \PY{n}{output\PYZus{}notebook}
+         \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+         \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{smf}
+         \PY{k+kn}{from} \PY{n+nn}{patsy} \PY{k}{import} \PY{n}{dmatrices}
+         
+         
+         \PY{k+kn}{import} \PY{n+nn}{sklearn}
+         \PY{k+kn}{import} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{,}\PY{n}{cross\PYZus{}validate}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{KFold}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{ensemble}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{linear\PYZus{}model}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}\PY{p}{,}\PY{n}{GradientBoostingClassifier}\PY{p}{,}\PY{n}{AdaBoostClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{GaussianNB}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}\PY{p}{,}\PY{n}{Ridge}\PY{p}{,}\PY{n}{Lasso}\PY{p}{,}\PY{n}{RidgeCV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestRegressor}\PY{p}{,}\PY{n}{BaggingRegressor}\PY{p}{,}\PY{n}{GradientBoostingRegressor}\PY{p}{,}\PY{n}{AdaBoostRegressor}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVR}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsRegressor}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{MinMaxScaler}\PY{p}{,}\PY{n}{StandardScaler}\PY{p}{,}\PY{n}{Imputer}\PY{p}{,}\PY{n}{LabelEncoder}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}log\PYZus{}error}\PY{p}{,}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{,} \PY{n}{r2\PYZus{}score}\PY{p}{,}\PY{n}{mean\PYZus{}absolute\PYZus{}error} 
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}\PY{p}{,}\PY{n}{precision\PYZus{}score}\PY{p}{,}\PY{n}{recall\PYZus{}score}\PY{p}{,}\PY{n}{f1\PYZus{}score} 
+         
+         \PY{k+kn}{import} \PY{n+nn}{warnings}
+         \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{always}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{output\PYZus{}notebook}\PY{p}{(}\PY{p}{)}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \subsection{Step 1: Data Reading}\label{step-1-data-reading}
+
+    \begin{itemize}
+\tightlist
+\item
+  Here, we can use the \emph{read\_csv()} from the \emph{pandas} library
+  to load data into dataframe from the remote url.
+\item
+  View the first five rows using head() function
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{wine}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{MASTERS}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{SEMESTER\PYZus{}4}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{CS\PYZus{}4661}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{Project}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{winequality\PYZhy{}red.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{wine}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:}    fixed acidity  volatile acidity  citric acid  residual sugar  chlorides  \textbackslash{}
+         0            7.4              0.70         0.00             1.9      0.076   
+         1            7.8              0.88         0.00             2.6      0.098   
+         2            7.8              0.76         0.04             2.3      0.092   
+         3           11.2              0.28         0.56             1.9      0.075   
+         4            7.4              0.70         0.00             1.9      0.076   
+         
+            free sulfur dioxide  total sulfur dioxide  density    pH  sulphates  \textbackslash{}
+         0                 11.0                  34.0   0.9978  3.51       0.56   
+         1                 25.0                  67.0   0.9968  3.20       0.68   
+         2                 15.0                  54.0   0.9970  3.26       0.65   
+         3                 17.0                  60.0   0.9980  3.16       0.58   
+         4                 11.0                  34.0   0.9978  3.51       0.56   
+         
+            alcohol  quality  
+         0      9.4        5  
+         1      9.8        5  
+         2      9.8        5  
+         3      9.8        6  
+         4      9.4        5  
+\end{Verbatim}
+            
+    \begin{quote}
+\subsubsection{Coloumn Information}\label{coloumn-information}
+\end{quote}
+
+    \begin{itemize}
+\tightlist
+\item
+  Fixed acidity: most acids involved with wine or fixed or nonvolatile
+  (do not evaporate readily)
+\item
+  Volatile acidity: the amount of acetic acid in wine, which at too high
+  of levels can lead to an unpleasant, vinegar taste
+\item
+  Citric acid: found in small quantities, citric acid can add
+  'freshness' and flavor to wines
+\item
+  Residual sugar: the amount of sugar remaining after fermentation
+  stops, it's rare to find wines with less than 1 gram/liter and wines
+  with greater than 45 grams/liter are considered sweet
+\item
+  Chlorides: the amount of salt in the wine
+\item
+  Free sulfur dioxide: the free form of SO2 exists in equilibrium
+  between molecular SO2 (as a dissolved gas) and bisulfite ion; - it
+  prevents microbial growth and the oxidation of wine
+\item
+  Total sulfur dioxide: amount of free and bound forms of S02; in low
+  concentrations, SO2 is mostly undetectable in wine, but at - free SO2
+  concentrations over 50 ppm, SO2 becomes evident in the nose and taste
+  of wine
+\item
+  Density: the density of water is close to that of water depending on
+  the percent alcohol and sugar content
+\item
+  pH: describes how acidic or basic a wine is on a scale from 0 (very
+  acidic) to 14 (very basic); most wines are between 3-4 on the pH scale
+\item
+  Sulphates: a wine additive which can contribute to sulfur dioxide gas
+  (S02) levels, wich acts as an antimicrobial and antioxidant
+\item
+  Alcohol: the percent alcohol content of the wine
+\item
+  Quality: output variable (based on sensory data, score between 0 and
+  10)
+\end{itemize}
+
+    \subsection{Step 2: Data Exploration}\label{step-2-data-exploration}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shape of Red Wine dataset: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{wine}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{List of columns: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n}{wine}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Shape of Red Wine dataset:  (1599, 12)
+
+
+List of columns:  ['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol', 'quality']
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  total 1599 observations with 12 different feature variables/attributes
+\item
+  all 12 columns are of numeric data types. Out of 12 variables, 11 are
+  predictor variables and last one 'quality' is an response variable.
+\end{itemize}
+
+    \begin{quote}
+\subsubsection{Checking the null/missing value in the
+Dataset}\label{checking-the-nullmissing-value-in-the-dataset}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{k+kn}{import} \PY{n+nn}{missingno} \PY{k}{as} \PY{n+nn}{msno}
+         \PY{n}{wine}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:} fixed acidity           0
+         volatile acidity        0
+         citric acid             0
+         residual sugar          0
+         chlorides               0
+         free sulfur dioxide     0
+         total sulfur dioxide    0
+         density                 0
+         pH                      0
+         sulphates               0
+         alcohol                 0
+         quality                 0
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  This function count the colums which contain null value but here it
+  seems like Data is pre processed and clened with dummy and null
+  values.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{msno}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{wine}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x17b1ca6b4e0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{c+c1}{\PYZsh{} bar chart for showing null value.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{c+c1}{\PYZsh{} Now, let\PYZsq{}s check the information about different variables/column from the dataset:}
+         \PY{n}{wine}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1599 entries, 0 to 1598
+Data columns (total 12 columns):
+fixed acidity           1599 non-null float64
+volatile acidity        1599 non-null float64
+citric acid             1599 non-null float64
+residual sugar          1599 non-null float64
+chlorides               1599 non-null float64
+free sulfur dioxide     1599 non-null float64
+total sulfur dioxide    1599 non-null float64
+density                 1599 non-null float64
+pH                      1599 non-null float64
+sulphates               1599 non-null float64
+alcohol                 1599 non-null float64
+quality                 1599 non-null int64
+dtypes: float64(11), int64(1)
+memory usage: 150.0 KB
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  No Missing value or null vale in the data set\\
+\item
+  All Feature coulmns having floating values and target variable having
+  the integer values.
+\end{itemize}
+
+    \begin{quote}
+\subsubsection{Stastical information for
+Dataset}\label{stastical-information-for-dataset}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{wine}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:}                        count       mean        std      min      25\%  \textbackslash{}
+         fixed acidity         1599.0   8.319637   1.741096  4.60000   7.1000   
+         volatile acidity      1599.0   0.527821   0.179060  0.12000   0.3900   
+         citric acid           1599.0   0.270976   0.194801  0.00000   0.0900   
+         residual sugar        1599.0   2.538806   1.409928  0.90000   1.9000   
+         chlorides             1599.0   0.087467   0.047065  0.01200   0.0700   
+         free sulfur dioxide   1599.0  15.874922  10.460157  1.00000   7.0000   
+         total sulfur dioxide  1599.0  46.467792  32.895324  6.00000  22.0000   
+         density               1599.0   0.996747   0.001887  0.99007   0.9956   
+         pH                    1599.0   3.311113   0.154386  2.74000   3.2100   
+         sulphates             1599.0   0.658149   0.169507  0.33000   0.5500   
+         alcohol               1599.0  10.422983   1.065668  8.40000   9.5000   
+         quality               1599.0   5.636023   0.807569  3.00000   5.0000   
+         
+                                    50\%        75\%        max  
+         fixed acidity          7.90000   9.200000   15.90000  
+         volatile acidity       0.52000   0.640000    1.58000  
+         citric acid            0.26000   0.420000    1.00000  
+         residual sugar         2.20000   2.600000   15.50000  
+         chlorides              0.07900   0.090000    0.61100  
+         free sulfur dioxide   14.00000  21.000000   72.00000  
+         total sulfur dioxide  38.00000  62.000000  289.00000  
+         density                0.99675   0.997835    1.00369  
+         pH                     3.31000   3.400000    4.01000  
+         sulphates              0.62000   0.730000    2.00000  
+         alcohol               10.20000  11.100000   14.90000  
+         quality                6.00000   6.000000    8.00000  
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  The summary of Red Wine dataset looks perfect, there is no visible
+  abnormality in data (invalid/negative values).
+\item
+  All the data seems to be in range (with different scales, which needs
+  standardization).
+\end{itemize}
+
+    \begin{quote}
+\subsubsection{Learn about Target Vector(Output
+coloumn)}\label{learn-about-target-vectoroutput-coloumn}
+\end{quote}
+
+    \begin{itemize}
+\tightlist
+\item
+  Find unique value in reponse variable
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{wine}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}78}]:} array([5, 6, 7, 4, 8, 3], dtype=int64)
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Distributation of Unique values
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{wine}\PY{o}{.}\PY{n}{quality}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}79}]:} 3     10
+         4     53
+         5    681
+         6    638
+         7    199
+         8     18
+         Name: quality, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{wine}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x17b1caee128>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  The above distribution shows the range for response variable
+  (\emph{quality}) is between 3 to 8.
+\end{itemize}
+
+    \begin{quote}
+\subsubsection{Converting numerical value to catogorical value of Target
+Variables}\label{converting-numerical-value-to-catogorical-value-of-target-variables}
+\end{quote}
+
+    \begin{itemize}
+\tightlist
+\item
+  bad: 1-4\\
+\item
+  average: 5-6\\
+\item
+  good: 7-10
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{conditions} \PY{o}{=} \PY{p}{[}
+             \PY{p}{(}\PY{n}{wine}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{n}{wine}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{4}\PY{p}{)}
+         \PY{p}{]}
+         \PY{n}{rating} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{good}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{wine}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{n}{conditions}\PY{p}{,} \PY{n}{rating}\PY{p}{,} \PY{n}{default}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{average}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{wine}\PY{o}{.}\PY{n}{rating}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:} average    1319
+         good        217
+         bad          63
+         Name: rating, dtype: int64
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Bargraph Representation
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{wine}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x17b1cb6f400>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{Statistical analysis of Target variable}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  Find A Mean
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{wine}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:}          fixed acidity  volatile acidity  citric acid  residual sugar  \textbackslash{}
+         rating                                                                  
+         average       8.254284          0.538560     0.258264        2.503867   
+         bad           7.871429          0.724206     0.173651        2.684921   
+         good          8.847005          0.405530     0.376498        2.708756   
+         
+                  chlorides  free sulfur dioxide  total sulfur dioxide   density  \textbackslash{}
+         rating                                                                    
+         average   0.088973            16.368461             48.946929  0.996867   
+         bad       0.095730            12.063492             34.444444  0.996689   
+         good      0.075912            13.981567             34.889401  0.996030   
+         
+                        pH  sulphates    alcohol   quality  
+         rating                                             
+         average  3.311296   0.647263  10.252717  5.483700  
+         bad      3.384127   0.592222  10.215873  3.841270  
+         good     3.288802   0.743456  11.518049  7.082949  
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Find Max
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{wine}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:}          fixed acidity  volatile acidity  citric acid  residual sugar  \textbackslash{}
+         rating                                                                  
+         average           15.9             1.330         0.79            15.5   
+         bad               12.5             1.580         1.00            12.9   
+         good              15.6             0.915         0.76             8.9   
+         
+                  chlorides  free sulfur dioxide  total sulfur dioxide  density    pH  \textbackslash{}
+         rating                                                                         
+         average      0.611                 72.0                 165.0  1.00369  4.01   
+         bad          0.610                 41.0                 119.0  1.00100  3.90   
+         good         0.358                 54.0                 289.0  1.00320  3.78   
+         
+                  sulphates  alcohol  quality  
+         rating                                
+         average       1.98     14.9        6  
+         bad           2.00     13.1        4  
+         good          1.36     14.0        8  
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Find Min
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{wine}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:}          fixed acidity  volatile acidity  citric acid  residual sugar  \textbackslash{}
+         rating                                                                  
+         average            4.7              0.16          0.0             0.9   
+         bad                4.6              0.23          0.0             1.2   
+         good               4.9              0.12          0.0             1.2   
+         
+                  chlorides  free sulfur dioxide  total sulfur dioxide  density    pH  \textbackslash{}
+         rating                                                                         
+         average      0.034                  1.0                   6.0  0.99007  2.86   
+         bad          0.045                  3.0                   7.0  0.99340  2.74   
+         good         0.012                  3.0                   7.0  0.99064  2.88   
+         
+                  sulphates  alcohol  quality  
+         rating                                
+         average       0.37      8.4        5  
+         bad           0.33      8.4        3  
+         good          0.39      9.2        7  
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Find Median
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{wine}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}86}]:}          fixed acidity  volatile acidity  citric acid  residual sugar  \textbackslash{}
+         rating                                                                  
+         average            7.8              0.54         0.24             2.2   
+         bad                7.5              0.68         0.08             2.1   
+         good               8.7              0.37         0.40             2.3   
+         
+                  chlorides  free sulfur dioxide  total sulfur dioxide  density    pH  \textbackslash{}
+         rating                                                                         
+         average      0.080                 14.0                  40.0  0.99680  3.31   
+         bad          0.080                  9.0                  26.0  0.99660  3.38   
+         good         0.073                 11.0                  27.0  0.99572  3.27   
+         
+                  sulphates  alcohol  quality  
+         rating                                
+         average       0.61     10.0        5  
+         bad           0.56     10.0        4  
+         good          0.74     11.6        7  
+\end{Verbatim}
+            
+    \subsection{Step 3 : Dataset Analysis}\label{step-3-dataset-analysis}
+
+    \begin{quote}
+\subsubsection{Correlation between
+features/variables:}\label{correlation-between-featuresvariables}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{c+c1}{\PYZsh{} correlation = wine.corr()}
+         \PY{c+c1}{\PYZsh{} plt.figure(figsize=(12, 5))}
+         \PY{c+c1}{\PYZsh{} \PYZsh{}sns.heatmap(correlation, annot=True, linewidths=0, vmin=\PYZhy{}1, cmap=\PYZdq{}RdBu\PYZus{}r\PYZdq{})}
+         
+         \PY{n}{correlation}\PY{o}{=} \PY{n}{wine}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+         \PY{n}{colormap} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{inferno}
+         \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{correlation}\PY{p}{)}
+         \PY{n}{mask}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{tril\PYZus{}indices\PYZus{}from}\PY{p}{(}\PY{n}{mask}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{k+kc}{False}
+         \PY{n}{fig}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{correlation} \PY{p}{,}\PY{n}{mask}\PY{o}{=}\PY{n}{mask}\PY{p}{,}\PY{n}{square}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{cbar}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{colormap}\PY{p}{,} \PY{n}{linecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{White}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidths}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}87}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x17b1cbb6d68>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{n}{correlation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}88}]:} quality                 1.000000
+         alcohol                 0.476166
+         sulphates               0.251397
+         citric acid             0.226373
+         fixed acidity           0.124052
+         residual sugar          0.013732
+         free sulfur dioxide    -0.050656
+         pH                     -0.057731
+         chlorides              -0.128907
+         density                -0.174919
+         total sulfur dioxide   -0.185100
+         volatile acidity       -0.390558
+         Name: quality, dtype: float64
+\end{Verbatim}
+            
+    \subsubsection{How diffrent variables(Factors) are affecting the wine
+Quality
+?}\label{how-diffrent-variablesfactors-are-affecting-the-wine-quality}
+
+\begin{itemize}
+\tightlist
+\item
+  Most affecting Factors : ** Alcohol , Volatile acidity, Sulphates and
+  Critic Acid**
+\item
+  Least affecting Factors : ** Residual sugar, Free Sulphur Dioxide and
+  ph **
+\end{itemize}
+
+    \subsubsection{Positive Correlated
+Factors:}\label{positive-correlated-factors}
+
+\begin{itemize}
+\tightlist
+\item
+  Alcohol\\
+\item
+  Sulphates\\
+\item
+  Citric acid\\
+\item
+  Fixed acidity
+\end{itemize}
+
+\subsubsection{Negative Correlated
+Facotrs:}\label{negative-correlated-facotrs}
+
+\begin{itemize}
+\tightlist
+\item
+  volatile acidity
+\item
+  total sulfur dioxide
+\item
+  density\\
+\item
+  chlorides
+\end{itemize}
+
+\emph{all the factors are in decreasing order \textbf{Most to least}}
+
+    \paragraph{Analysis of alcohol percentage with wine
+quality:}\label{analysis-of-alcohol-percentage-with-wine-quality}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{bx} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{quality}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wine}\PY{p}{)}
+         \PY{n}{bx}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wine Quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol Percent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol percent in different wine quality types}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}89}]:} [Text(0,0.5,'Alcohol Percent'),
+          Text(0.5,0,'Wine Quality'),
+          Text(0.5,1,'Alcohol percent in different wine quality types')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{bx} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wine}\PY{p}{)}
+         \PY{n}{bx}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wine Ratings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alcohol in different types of Wine Rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:} [Text(0,0.5,'alcohol'),
+          Text(0.5,0,'Wine Ratings'),
+          Text(0.5,1,'alcohol in different types of Wine Rating')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  Good Wine contain more alcohol.
+\end{itemize}
+
+    \paragraph{Analysis of sulphates \& wine
+ratings:}\label{analysis-of-sulphates-wine-ratings}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{bx} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{quality}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sulphates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wine}\PY{p}{)}
+         \PY{n}{bx}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wine quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sulphates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sulphates in different types of Wine quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:} [Text(0,0.5,'Sulphates'),
+          Text(0.5,0,'Wine quality'),
+          Text(0.5,1,'Sulphates in different types of Wine quality')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{bx} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sulphates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wine}\PY{p}{)}
+         \PY{n}{bx}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wine Ratings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sulphates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sulphates in different types of Wine ratings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}92}]:} [Text(0,0.5,'Sulphates'),
+          Text(0.5,0,'Wine Ratings'),
+          Text(0.5,1,'Sulphates in different types of Wine ratings')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Analysis of Citric Acid \& wine
+ratings:}\label{analysis-of-citric-acid-wine-ratings}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{bx} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{violinplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{quality}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{citric acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wine}\PY{p}{)}
+         \PY{n}{bx}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wine quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Citric Acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{citric acid in different types of Wine quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:} [Text(0,0.5,'Citric Acid'),
+          Text(0.5,0,'Wine quality'),
+          Text(0.5,1,'citric acid in different types of Wine quality')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{bx} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{violinplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{citric acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wine}\PY{p}{)}
+         \PY{n}{bx}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wine Ratings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Citric Acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{citric acid in different types of Wine ratings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:} [Text(0,0.5,'Citric Acid'),
+          Text(0.5,0,'Wine Ratings'),
+          Text(0.5,1,'citric acid in different types of Wine ratings')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Analysis of fixed acidity \& wine
+ratings:}\label{analysis-of-fixed-acidity-wine-ratings}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{bx} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{quality}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fixed acidity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wine}\PY{p}{)}
+         \PY{n}{bx}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wine quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fixed Acidity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fixed Acidity in different types of Wine quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}95}]:} [Text(0,0.5,'Fixed Acidity'),
+          Text(0.5,0,'Wine quality'),
+          Text(0.5,1,'Fixed Acidity in different types of Wine quality')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_61_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{n}{bx} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fixed acidity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wine}\PY{p}{)}
+         \PY{n}{bx}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wine Ratings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fixed Acidity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fixed Acidity in different types of Wine ratings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}96}]:} [Text(0,0.5,'Fixed Acidity'),
+          Text(0.5,0,'Wine Ratings'),
+          Text(0.5,1,'Fixed Acidity in different types of Wine ratings')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Analysis of pH \& wine
+ratings:}\label{analysis-of-ph-wine-ratings}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{n}{bx} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{violinplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{quality}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pH}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wine}\PY{p}{)}\PY{p}{;}
+         \PY{n}{bx}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wine quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pH in different types of Wine quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}97}]:} [Text(0,0.5,'pH'),
+          Text(0.5,0,'Wine quality'),
+          Text(0.5,1,'pH in different types of Wine quality')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n}{bx} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{swarmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pH}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wine}\PY{p}{)}\PY{p}{;}
+         \PY{n}{bx}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wine Ratings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pH in different types of Wine ratings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}98}]:} [Text(0,0.5,'pH'),
+          Text(0.5,0,'Wine Ratings'),
+          Text(0.5,1,'pH in different types of Wine ratings')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_65_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Linear Regression:}\label{linear-regression}
+
+\begin{itemize}
+\tightlist
+\item
+  Below graphs for different quality ratings shows a linear regression
+  between residual\_sugar \& alcohol in red wine,
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{residual sugar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{col} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wine}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}99}]:} <seaborn.axisgrid.FacetGrid at 0x17b1d89b0f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  The linear regression plots above for different wine quality ratings
+  (bad, average \& good) shows the regression between alcohol and
+  residual sugar content of the red wine.\\
+\item
+  We can observe from the trendline that, for good and average wine
+  types the residual sugar content remains almost constant irrespective
+  of alcohol content value. Whereas for bad quality wine, the residual
+  sugar content increases gradually with the increase in alcohol
+  content.\\
+\item
+  This analysis can help in manufacturing the good quality wine with
+  continuous monitoring and contrilling the alcohol and residual sugar
+  content of the red wine.
+\end{itemize}
+
+    \subsection{Step 4: Apply Different Classifications on
+Dataset}\label{step-4-apply-different-classifications-on-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{wine}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}100}]:}    fixed acidity  volatile acidity  citric acid  residual sugar  chlorides  \textbackslash{}
+          0            7.4              0.70         0.00             1.9      0.076   
+          1            7.8              0.88         0.00             2.6      0.098   
+          2            7.8              0.76         0.04             2.3      0.092   
+          3           11.2              0.28         0.56             1.9      0.075   
+          4            7.4              0.70         0.00             1.9      0.076   
+          
+             free sulfur dioxide  total sulfur dioxide  density    pH  sulphates  \textbackslash{}
+          0                 11.0                  34.0   0.9978  3.51       0.56   
+          1                 25.0                  67.0   0.9968  3.20       0.68   
+          2                 15.0                  54.0   0.9970  3.26       0.65   
+          3                 17.0                  60.0   0.9980  3.16       0.58   
+          4                 11.0                  34.0   0.9978  3.51       0.56   
+          
+             alcohol  quality   rating  
+          0      9.4        5  average  
+          1      9.8        5  average  
+          2      9.8        5  average  
+          3      9.8        6  average  
+          4      9.4        5  average  
+\end{Verbatim}
+            
+    \subsubsection{Now we devide wine qulaity in label vector 1(good) and
+0(bad)}\label{now-we-devide-wine-qulaity-in-label-vector-1good-and-0bad}
+
+\begin{itemize}
+\tightlist
+\item
+  1 (good) quality \textgreater{}= 6.5
+\item
+  0 (bad) quality \textless{} 6.5
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{k}{def} \PY{n+nf}{label\PYZus{}vector\PYZus{}design}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{6.5}\PY{p}{:}
+                  \PY{k}{return} \PY{l+m+mi}{1}
+              \PY{k}{elif} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mf}{6.5} \PY{p}{:}
+                  \PY{k}{return} \PY{l+m+mi}{0}
+          \PY{n}{wine}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{wine}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{label\PYZus{}vector\PYZus{}design}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{wine}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}102}]:}    fixed acidity  volatile acidity  citric acid  residual sugar  chlorides  \textbackslash{}
+          0            7.4              0.70         0.00             1.9      0.076   
+          1            7.8              0.88         0.00             2.6      0.098   
+          2            7.8              0.76         0.04             2.3      0.092   
+          3           11.2              0.28         0.56             1.9      0.075   
+          4            7.4              0.70         0.00             1.9      0.076   
+          
+             free sulfur dioxide  total sulfur dioxide  density    pH  sulphates  \textbackslash{}
+          0                 11.0                  34.0   0.9978  3.51       0.56   
+          1                 25.0                  67.0   0.9968  3.20       0.68   
+          2                 15.0                  54.0   0.9970  3.26       0.65   
+          3                 17.0                  60.0   0.9980  3.16       0.58   
+          4                 11.0                  34.0   0.9978  3.51       0.56   
+          
+             alcohol  quality   rating  label  
+          0      9.4        5  average      0  
+          1      9.8        5  average      0  
+          2      9.8        5  average      0  
+          3      9.8        6  average      0  
+          4      9.4        5  average      0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{X} \PY{o}{=} \PY{n}{wine}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{X}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:}    fixed acidity  volatile acidity  citric acid  residual sugar  chlorides  \textbackslash{}
+          0            7.4              0.70         0.00             1.9      0.076   
+          1            7.8              0.88         0.00             2.6      0.098   
+          2            7.8              0.76         0.04             2.3      0.092   
+          3           11.2              0.28         0.56             1.9      0.075   
+          4            7.4              0.70         0.00             1.9      0.076   
+          
+             free sulfur dioxide  total sulfur dioxide  density    pH  sulphates  \textbackslash{}
+          0                 11.0                  34.0   0.9978  3.51       0.56   
+          1                 25.0                  67.0   0.9968  3.20       0.68   
+          2                 15.0                  54.0   0.9970  3.26       0.65   
+          3                 17.0                  60.0   0.9980  3.16       0.58   
+          4                 11.0                  34.0   0.9978  3.51       0.56   
+          
+             alcohol  
+          0      9.4  
+          1      9.8  
+          2      9.8  
+          3      9.8  
+          4      9.4  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{y} \PY{o}{=} \PY{n}{wine}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{y}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}104}]:} 0    0
+          1    0
+          2    0
+          3    0
+          4    0
+          Name: label, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{X\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{o}{=}\PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Accuracy }
+          \PY{n}{Accuracy} \PY{o}{=} \PY{p}{[} \PY{p}{]}
+          
+          \PY{n}{classifiers}\PY{o}{=}\PY{p}{[}\PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{41}\PY{p}{)}\PY{p}{,}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}\PY{p}{,}\PY{p}{]}
+          \PY{n}{classifiers\PYZus{}names}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LogisticRegression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KNearestNeighbors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RandomForestClassifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DecisionTree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{result}\PY{o}{=}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          
+          \PY{k}{for} \PY{n}{classifier}  \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{classifiers}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{c}\PY{o}{=}\PY{n}{classifiers}\PY{p}{[}\PY{n}{classifier}\PY{p}{]}
+              \PY{n}{c}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+              \PY{n}{y\PYZus{}predict}\PY{o}{=}\PY{n}{c}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+              \PY{n}{Accuracy}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}predict}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+               
+          \PY{n}{result}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classifiers Algorithm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{classifiers\PYZus{}names}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{Accuracy}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{Accuracy\PYZus{}frame}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+          \PY{n}{Accuracy\PYZus{}frame}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}107}]:}     Classifiers Algorithm  Accuracy
+          0      LogisticRegression    0.8775
+          1       KNearestNeighbors    0.8625
+          2  RandomForestClassifier    0.9050
+          3            DecisionTree    0.8825
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classifiers Algorithm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{Accuracy\PYZus{}frame}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}111}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x17b1ee66e80>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{factorplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classifiers Algorithm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{Accuracy\PYZus{}frame}\PY{p}{,}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{point}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mf}{4.5}\PY{p}{,}\PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}112}]:} <seaborn.axisgrid.FacetGrid at 0x17b1edede80>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_78_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\subsection{Scaling the Feature Data}\label{scaling-the-feature-data}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{X\PYZus{}Scaled} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{scale}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{with\PYZus{}mean}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{with\PYZus{}std}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{copy}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{X\PYZus{}Scaled}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}113}]:} array([[-0.52835961,  0.96187667, -1.39147228, {\ldots},  1.28864292,
+                  -0.57920652, -0.96024611],
+                 [-0.29854743,  1.96744245, -1.39147228, {\ldots}, -0.7199333 ,
+                   0.1289504 , -0.58477711],
+                 [-0.29854743,  1.29706527, -1.18607043, {\ldots}, -0.33117661,
+                  -0.04808883, -0.58477711],
+                 {\ldots},
+                 [-1.1603431 , -0.09955388, -0.72391627, {\ldots},  0.70550789,
+                   0.54204194,  0.54162988],
+                 [-1.39015528,  0.65462046, -0.77526673, {\ldots},  1.6773996 ,
+                   0.30598963, -0.20930812],
+                 [-1.33270223, -1.21684919,  1.02199944, {\ldots},  0.51112954,
+                   0.01092425,  0.54162988]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{X\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{o}{=}\PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}Scaled}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Accuracy }
+          \PY{n}{Accuracy\PYZus{}Scaled} \PY{o}{=} \PY{p}{[} \PY{p}{]}
+          
+          \PY{n}{classifiers}\PY{o}{=}\PY{p}{[}\PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{41}\PY{p}{)}\PY{p}{,}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}\PY{p}{,}\PY{p}{]}
+          \PY{n}{classifiers\PYZus{}names}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LogisticRegression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KNearestNeighbors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RandomForestClassifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DecisionTree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{result\PYZus{}normalized}\PY{o}{=}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          
+          \PY{k}{for} \PY{n}{classifier}  \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{classifiers}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{c}\PY{o}{=}\PY{n}{classifiers}\PY{p}{[}\PY{n}{classifier}\PY{p}{]}
+              \PY{n}{c}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+              \PY{n}{y\PYZus{}predict}\PY{o}{=}\PY{n}{c}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+              \PY{n}{Accuracy\PYZus{}Scaled}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}predict}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+               
+          \PY{n}{result\PYZus{}normalized}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classifiers Algorithm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{classifiers\PYZus{}names}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy\PYZus{}Scaled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{Accuracy\PYZus{}Scaled}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{Accuracy\PYZus{}frame\PYZus{}Normalized}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{result\PYZus{}normalized}\PY{p}{)}
+          \PY{n}{Accuracy\PYZus{}frame\PYZus{}Normalized}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}114}]:}     Classifiers Algorithm  Accuracy\_Scaled
+          0      LogisticRegression           0.8775
+          1       KNearestNeighbors           0.8950
+          2  RandomForestClassifier           0.9050
+          3            DecisionTree           0.8825
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:}     
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
