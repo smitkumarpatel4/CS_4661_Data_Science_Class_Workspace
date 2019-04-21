@@ -1,10 +1,12 @@
 # CS4661 Introduction to Data Science | Fall-2018
 
 CS4661 Introduction to Data Science (Slides, Labs & Assignments)
+
 Course Information: 
 -Algorithms, tools, and techniques for extracting knowledge from large-scale data, and use it for future purposes such as prediction, classification, and visualization. Including fundamental Machine Learning and Big Data Manipulation
 
 Topics Coverded:
+
 - Introduction and Applications 
 •	The concept of Data Science, definitions, integrations of data science, real-life applications and examples, history and context, technology landscape.
 
